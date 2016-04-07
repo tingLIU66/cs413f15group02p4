@@ -2,38 +2,47 @@ package edu.luc.etl.cs313.android.simplestopwatch.model.state;
 
 import edu.luc.etl.cs313.android.simplestopwatch.R;
 
-class StoppedState implements StopwatchState {
+class StoppedState implements SimpleTimerState {
 
-    public StoppedState(final StopwatchSMStateView sm) {
+    public StoppedState(final SimpleTimerSMStateView sm) {
         this.sm = sm;
     }
 
-    private final StopwatchSMStateView sm;
+    private final SimpleTimerSMStateView sm;
 
     @Override
-    public void onStartStop() {
-        sm.actionStart();
-        sm.toRunningState();
+    public void onIncrement() {
+        sm.toIncrementState();
+       // sm.updateButtonName();
     }
-
-    @Override
-    public void onLapReset() {
-        sm.actionReset();
-        sm.toStoppedState();
-    }
-
     @Override
     public void onTick() {
         throw new UnsupportedOperationException("onTick");
     }
 
     @Override
-    public void updateView() {
-        sm.updateUIRuntime();
-    }
-
-    @Override
     public int getId() {
         return R.string.STOPPED;
     }
+
+    @Override
+    public int getValue()
+    {
+        return 0; //return sm.getValue();
+    }
+
+    @Override
+    public void updateView() {
+            sm.updateUIRuntime();
+    }
+
+
+    //@Override
+    //public void onIncrement(){}
+
+     @Override
+     public void onCancel(){}  //do nothing
+
+    @Override
+    public void onStop(){}       //do nothing
 }

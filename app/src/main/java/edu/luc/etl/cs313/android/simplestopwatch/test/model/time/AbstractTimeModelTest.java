@@ -1,8 +1,5 @@
 package edu.luc.etl.cs313.android.simplestopwatch.test.model.time;
 
-import static edu.luc.etl.cs313.android.simplestopwatch.common.Constants.SEC_PER_HOUR;
-import static edu.luc.etl.cs313.android.simplestopwatch.common.Constants.SEC_PER_MIN;
-import static edu.luc.etl.cs313.android.simplestopwatch.common.Constants.SEC_PER_TICK;
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertTrue;
 
@@ -37,7 +34,7 @@ public abstract class AbstractTimeModelTest {
     @Test
     public void testPreconditions() {
         assertEquals(0, model.getRuntime());
-        assertTrue(model.getLaptime() <= 0);
+       // assertTrue(model.getLaptime() <= 0);
     }
 
     /**
@@ -46,10 +43,10 @@ public abstract class AbstractTimeModelTest {
     @Test
     public void testIncrementRuntimeOne() {
         final int rt = model.getRuntime();
-        final int lt = model.getLaptime();
-        model.incRuntime();
-        assertEquals((rt + SEC_PER_TICK) % SEC_PER_MIN, model.getRuntime());
-        assertEquals(lt, model.getLaptime());
+       // final int lt = model.getLaptime();
+        model.decRuntime(2);
+        assertEquals((rt - 1), model.getRuntime());
+       // assertEquals(lt, model.getLaptime());
     }
 
     /**
@@ -58,21 +55,22 @@ public abstract class AbstractTimeModelTest {
     @Test
     public void testIncrementRuntimeMany() {
         final int rt = model.getRuntime();
-        final int lt = model.getLaptime();
-        for (int i = 0; i < SEC_PER_HOUR; i ++) {
-            model.incRuntime();
+        //final int lt = model.getLaptime();
+        for (int i = 10; i >0; i --) {
+            model.decRuntime(i);
         }
         assertEquals(rt, model.getRuntime());
-        assertEquals(lt, model.getLaptime());
+       // assertEquals(lt, model.getLaptime());
     }
 
     /**
      * Verifies that laptime works correctly.
      */
+   /*
     @Test
     public void testLaptime() {
         final int rt = model.getRuntime();
-        final int lt = model.getLaptime();
+
         for (int i = 0; i < 5; i ++) {
             model.incRuntime();
         }
@@ -86,4 +84,5 @@ public abstract class AbstractTimeModelTest {
         assertEquals(rt + 10, model.getRuntime());
         assertEquals(rt + 5, model.getLaptime());
     }
+    */
 }

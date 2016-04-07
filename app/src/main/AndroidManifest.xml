@@ -8,7 +8,7 @@
         android:label="@string/app_name"
         android:theme="@style/AppTheme" >
         <activity
-            android:name=".android.StopwatchAdapter"
+            android:name="edu.luc.etl.cs313.android.simplestopwatch.android.SimpleTimerAdapter"
             android:label="@string/title_activity_main"
             android:configChanges="orientation|screenSize|keyboardHidden" >
             <intent-filter>
