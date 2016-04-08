@@ -7,8 +7,6 @@ import edu.luc.etl.cs313.android.simplestopwatch.model.counter.BoundedCounterMod
 import edu.luc.etl.cs313.android.simplestopwatch.model.counter.DefaultBoundedCounterModel;
 import edu.luc.etl.cs313.android.simplestopwatch.model.state.DefaultSimpleTimerStateMachine;
 import edu.luc.etl.cs313.android.simplestopwatch.model.state.SimpleTimerStateMachine;
-import edu.luc.etl.cs313.android.simplestopwatch.model.time.DefaultTimeModel;
-import edu.luc.etl.cs313.android.simplestopwatch.model.time.TimeModel;
 
 /**
  * An implementation of the model facade.
@@ -21,15 +19,15 @@ public class ConcreteSimpleTimerModelFacade implements SimpleTimerModelFacade {
 
     private ClockModel clockModel;
 
-    private TimeModel timeModel;
+   // private TimeModel timeModel;
 
     private BoundedCounterModel boundedcounterModel;
 
     public ConcreteSimpleTimerModelFacade() {
-        timeModel = new DefaultTimeModel();
+       // timeModel = new DefaultTimeModel();
         clockModel = new DefaultClockModel();
         boundedcounterModel = new DefaultBoundedCounterModel(0,99);  //added 0n 4/4/2016
-        stateMachine = new DefaultSimpleTimerStateMachine(timeModel, clockModel, boundedcounterModel);  ////added 0n 4/4/2016
+        stateMachine = new DefaultSimpleTimerStateMachine(clockModel, boundedcounterModel);  ////added 0n 4/4/2016
         clockModel.setOnTickListener(stateMachine);
     }
 

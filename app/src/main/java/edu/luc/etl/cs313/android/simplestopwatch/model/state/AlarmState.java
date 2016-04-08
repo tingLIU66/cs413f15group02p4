@@ -12,12 +12,17 @@ class AlarmState implements SimpleTimerState {
 
     @Override
     public void onClickButton() {
-        sm.actionStopAlarm();
+        //sm.actionStopAlarm();
+        sm.actionStop();
         sm.actionReset();
-        sm.updateButtonName();
         sm.toStoppedState();
+        sm.updateButtonName();
+
     }
 
+    public boolean setStopAlarmFlag(){
+        return true;
+    }
     @Override
     public void onTick() {
         throw new UnsupportedOperationException("onTick");

@@ -8,4 +8,5 @@ package edu.luc.etl.cs313.android.simplestopwatch.common;
 public interface SimpleTimerUIListener {
     void onClickButton();
     int getValue();
+
 }

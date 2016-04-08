@@ -50,16 +50,16 @@ public class DefaultBoundedCounterModel implements BoundedCounterModel {
 
     @Override
     public void increment() {
-        assertIfDebug(() -> dataInvariant() && !isFull());
+      //  assertIfDebug(() -> dataInvariant() && !isFull());
         ++value;
-        assertIfDebug(this::dataInvariant);
+       // assertIfDebug(this::dataInvariant);
     }
 
     @Override
     public void decrement() {
-        assertIfDebug(() -> dataInvariant() && !isEmpty());
+       // assertIfDebug(() -> dataInvariant() && !isEmpty());
         --value;
-        assertIfDebug(this::dataInvariant);
+       // assertIfDebug(this::dataInvariant);
     }
 
         @Override
@@ -84,9 +84,33 @@ public class DefaultBoundedCounterModel implements BoundedCounterModel {
         return value <= min;
     }
 
+    /*
     protected void assertIfDebug(final BooleanSupplier p) {
         if (BuildConfig.DEBUG && !p.getAsBoolean()) {
             throw new AssertionError();
         }
     }
+
+*/
+    private int runningTime ;
+    private int tickcount = 0;
+
+    //  private int lapTime = -1;
+
+    @Override
+    public void resetRuntime() {
+        this.runningTime = 0;
+    }
+
+    @Override
+    public void decRuntime() {
+        this.runningTime = value--;
+        //tickcount++;
+    }
+
+    @Override
+    public int getRuntime() {
+        return this.runningTime;
+    }
+
 }

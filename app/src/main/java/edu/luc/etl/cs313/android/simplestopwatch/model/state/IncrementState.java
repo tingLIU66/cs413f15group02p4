@@ -17,7 +17,7 @@ class IncrementState implements SimpleTimerState {
         sm.actionIncrement();
         sm.actionUpdateView();
         if(this.getValue() == 10)// || (clickcount < 99 && sm.getTickcount() == 3)) {          //TO DO
-        {  // sm.actionBeep();
+        {   sm.actionBeep();
             sm.actionStart();
             sm.toDecrementState();
             sm.updateButtonName();

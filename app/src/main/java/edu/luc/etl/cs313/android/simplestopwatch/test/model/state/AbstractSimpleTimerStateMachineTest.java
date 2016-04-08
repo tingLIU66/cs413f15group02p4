@@ -15,7 +15,6 @@ import edu.luc.etl.cs313.android.simplestopwatch.model.clock.ClockModel;
 import edu.luc.etl.cs313.android.simplestopwatch.model.clock.OnTickListener;
 import edu.luc.etl.cs313.android.simplestopwatch.model.counter.BoundedCounterModel;
 import edu.luc.etl.cs313.android.simplestopwatch.model.state.SimpleTimerStateMachine;
-import edu.luc.etl.cs313.android.simplestopwatch.model.time.TimeModel;
 import java8.util.function.BooleanSupplier;
 
 /**
@@ -128,7 +127,7 @@ public abstract class AbstractSimpleTimerStateMachineTest {
  *
  * @author laufer
  */
-class UnifiedMockDependency implements TimeModel, ClockModel, BoundedCounterModel, SimpleTimerUIUpdateListener {
+class UnifiedMockDependency implements ClockModel, BoundedCounterModel, SimpleTimerUIUpdateListener {
 
     private int timeValue = -1, stateId = -1;
 
@@ -166,7 +165,7 @@ class UnifiedMockDependency implements TimeModel, ClockModel, BoundedCounterMode
     @Override
     public void updateCount() {
     }                  //added on 4/6/2016
-
+    @Override public void playDefaultALARM(){}
     @Override
     public void setOnTickListener(OnTickListener listener) {
         throw new UnsupportedOperationException();
@@ -188,8 +187,8 @@ class UnifiedMockDependency implements TimeModel, ClockModel, BoundedCounterMode
     }
 
     @Override
-    public void decRuntime(int runningTime) {
-        this.runningTime = runningTime--;
+    public void decRuntime() {
+        this.runningTime = value--;
         //tickcount++;
     }
 

@@ -3,7 +3,6 @@ package edu.luc.etl.cs313.android.simplestopwatch.model.state;
 import edu.luc.etl.cs313.android.simplestopwatch.common.SimpleTimerUIUpdateListener;
 import edu.luc.etl.cs313.android.simplestopwatch.model.clock.ClockModel;
 import edu.luc.etl.cs313.android.simplestopwatch.model.counter.BoundedCounterModel;
-import edu.luc.etl.cs313.android.simplestopwatch.model.time.TimeModel;
 
 /**
  * An implementation of the state machine for the stopwatch.
@@ -12,19 +11,20 @@ import edu.luc.etl.cs313.android.simplestopwatch.model.time.TimeModel;
  */
 public class DefaultSimpleTimerStateMachine implements SimpleTimerStateMachine {
 
-    public DefaultSimpleTimerStateMachine(final TimeModel timeModel, final ClockModel clockModel, final BoundedCounterModel boundedcounterModel) {
-        this.timeModel = timeModel;
+    public DefaultSimpleTimerStateMachine(final ClockModel clockModel, final BoundedCounterModel boundedcounterModel) {
+       // this.timeModel = timeModel;
         this.clockModel = clockModel;
         this.boundedcounterModel = boundedcounterModel;           //added on 4/42016
     }
 
-    private int stopbeepflag = 0;
+    //private int stopbeepflag = 0;
+    private boolean stopbeepflag = false;
 
     //private int clickcount = getValue();
 
     private int tickcount = 0;
 
-    private final TimeModel timeModel;
+    //private final TimeModel timeModel;
 
     private final ClockModel clockModel;
 
@@ -53,9 +53,10 @@ public class DefaultSimpleTimerStateMachine implements SimpleTimerStateMachine {
     @Override public synchronized void onClickButton() { state.onClickButton(); }
     @Override public synchronized void onTick()    { state.onTick(); }
 
-    @Override public void updateUIRuntime() { uiUpdateListener.updateTime(timeModel.getRuntime()); }
+    @Override public void updateUIRuntime() { uiUpdateListener.updateTime(boundedcounterModel.getRuntime()); }
     @Override public void updateButtonName(){ uiUpdateListener.updateButton(state.getId());}        //4/1/2016
     @Override public void updateCountValue() { uiUpdateListener.updateCount(); }                     //4/4/2016
+    @Override public void actionBeep()      { uiUpdateListener.playDefaultALARM(); }
 
     // known states
     private final SimpleTimerState STOPPED     = new StoppedState(this);
@@ -71,28 +72,31 @@ public class DefaultSimpleTimerStateMachine implements SimpleTimerStateMachine {
 
     // actions
     @Override public void actionInit()       { toStoppedState(); actionReset(); }
-    @Override public void actionReset()      { timeModel.resetRuntime(); actionUpdateView(); }
+    @Override public void actionReset()      { boundedcounterModel.resetRuntime(); actionUpdateView(); }
     @Override public void actionCancel()      { boundedcounterModel.reset(); updateCountValue(); }
     @Override public void actionStart()      { clockModel.start(); actionUpdateView();}  //added on 4/4/2016
     @Override public void actionStop()       { clockModel.stop(); }
 
-    @Override public void actionBeep()
-                        { //TO DO
-                                    }
 
-    @Override public void actionAlarm()
-    { //TO DO
-        while(stopbeepflag == 0)
+
+
+    @Override public void actionAlarm() { //TO DO
+        do {
             actionBeep();
+            ///stopbeepflag
+            }
+            while (!stopbeepflag) ;
+
     }
     @Override public void actionStopAlarm(){
-            stopbeepflag = 1;
+            stopbeepflag = true;
         //TO DO
         }
 
+
     @Override public void actionIncrement()        { boundedcounterModel.increment(); actionUpdateView(); }
-    @Override public void actionDecrement()        { timeModel.decRuntime(99); actionUpdateView();}
-    @Override public int getClickcount()    {return timeModel.getRuntime();}
+    @Override public void actionDecrement()        { boundedcounterModel.decRuntime(); actionUpdateView();}
+    @Override public int getClickcount()    {return boundedcounterModel.getRuntime();}
     @Override public int getTickcount()     {return tickcount;}
     @Override public void actionUpdateView() { state.updateView(); }
     @Override public int getValue(){ return boundedcounterModel.getClickValue();}        //added on 4/4/2016

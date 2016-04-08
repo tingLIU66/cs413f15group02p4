@@ -12,4 +12,5 @@ public interface SimpleTimerUIUpdateListener {
     void updateState(int stateId);
     void updateButton(int stateId);      //added on 4/ic_launcher/2016
     void updateCount();                  //added on 4/4/2016
+    void playDefaultALARM();
 }

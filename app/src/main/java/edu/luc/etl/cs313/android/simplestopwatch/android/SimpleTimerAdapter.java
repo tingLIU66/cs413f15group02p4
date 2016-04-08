@@ -127,14 +127,14 @@ public class SimpleTimerAdapter extends Activity implements SimpleTimerUIUpdateL
         model.onClickButton();
     }
 
-    protected void playDefaultALARM() {
-        final Uri defaultRingtoneUri = RingtoneManager.getDefaultUri(RingtoneManager.TYPE_ALARM);
+    public void playDefaultALARM() {
+        final Uri defaultRingtoneUri = RingtoneManager.getDefaultUri(RingtoneManager.TYPE_RINGTONE);
         final MediaPlayer mediaPlayer = new MediaPlayer();
         final Context context = getApplicationContext();
 
         try {
             mediaPlayer.setDataSource(context, defaultRingtoneUri);
-            mediaPlayer.setAudioStreamType(AudioManager.STREAM_NOTIFICATION);
+            mediaPlayer.setAudioStreamType(AudioManager.STREAM_RING);
             mediaPlayer.prepare();
             mediaPlayer.setOnCompletionListener(MediaPlayer::release);
             mediaPlayer.start();

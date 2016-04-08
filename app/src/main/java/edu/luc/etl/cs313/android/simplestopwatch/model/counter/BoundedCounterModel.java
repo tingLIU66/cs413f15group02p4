@@ -13,5 +13,8 @@ package edu.luc.etl.cs313.android.simplestopwatch.model.counter;
         void reset();
         boolean isFull();
         boolean isEmpty();
+        void resetRuntime();
+        void decRuntime();
+        int getRuntime();
     }
 

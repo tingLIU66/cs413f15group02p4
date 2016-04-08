@@ -18,7 +18,7 @@ public class DefaultSimpleTimerStateMachineTest extends AbstractSimpleTimerState
     @Before
     public void setUp() throws Exception {
         super.setUp();
-        setModel(new DefaultSimpleTimerStateMachine(getDependency(), getDependency(), getDependency()));
+        setModel(new DefaultSimpleTimerStateMachine(getDependency(), getDependency()));
     }
 
     @After

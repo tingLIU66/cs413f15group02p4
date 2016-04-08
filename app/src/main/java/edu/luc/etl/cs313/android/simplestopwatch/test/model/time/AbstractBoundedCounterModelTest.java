@@ -5,7 +5,7 @@ import static org.junit.Assert.assertTrue;
 
 import org.junit.Test;
 
-import edu.luc.etl.cs313.android.simplestopwatch.model.time.TimeModel;
+import edu.luc.etl.cs313.android.simplestopwatch.model.counter.BoundedCounterModel;
 
 /**
  * Testcase superclass for the time model abstraction.
@@ -14,9 +14,9 @@ import edu.luc.etl.cs313.android.simplestopwatch.model.time.TimeModel;
  * @author laufer
  * @see http://xunitpatterns.com/Testcase%20Superclass.html
  */
-public abstract class AbstractTimeModelTest {
+public abstract class AbstractBoundedCounterModelTest {
 
-    private TimeModel model;
+    private BoundedCounterModel model;
 
     /**
      * Setter for dependency injection. Usually invoked by concrete testcase
@@ -24,7 +24,7 @@ public abstract class AbstractTimeModelTest {
      *
      * @param model
      */
-    protected void setModel(final TimeModel model) {
+    protected void setModel(final BoundedCounterModel model) {
         this.model = model;
     }
 
@@ -44,7 +44,7 @@ public abstract class AbstractTimeModelTest {
     public void testIncrementRuntimeOne() {
         final int rt = model.getRuntime();
        // final int lt = model.getLaptime();
-        model.decRuntime(2);
+        model.decRuntime();
         assertEquals((rt - 1), model.getRuntime());
        // assertEquals(lt, model.getLaptime());
     }
@@ -57,7 +57,7 @@ public abstract class AbstractTimeModelTest {
         final int rt = model.getRuntime();
         //final int lt = model.getLaptime();
         for (int i = 10; i >0; i --) {
-            model.decRuntime(i);
+            model.decRuntime();
         }
         assertEquals(rt, model.getRuntime());
        // assertEquals(lt, model.getLaptime());

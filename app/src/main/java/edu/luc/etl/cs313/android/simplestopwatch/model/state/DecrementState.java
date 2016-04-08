@@ -26,9 +26,10 @@ class DecrementState implements SimpleTimerState {
         sm.toDecrementState();
         if(sm.getClickcount()==0){          //TO DO
             sm.actionStop();
-            sm.updateButtonName();
             sm.toAlarmState();
-            sm.actionAlarm();
+            sm.updateButtonName();
+            //sm.actionAlarm();
+            sm.actionBeep();
         }
     }
 
