@@ -29,6 +29,7 @@ interface SimpleTimerSMStateView {
     int getClickcount();
     int getTickcount();
     boolean isFull();
+    void actionCancel();
 
     // state-dependent UI updates
     void updateUIRuntime();

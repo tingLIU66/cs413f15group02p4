@@ -47,18 +47,9 @@ public class ConcreteSimpleTimerModelFacade implements SimpleTimerModelFacade {
     public int getValue() { return stateMachine.getValue();}   //added on 4/4/2016
 
     @Override
-    public void onIncrement() {
-        stateMachine.onIncrement();
+    public void onClickButton() {
+        stateMachine.onClickButton();
     }
 
-    @Override
-    public void onCancel() {
-        stateMachine.onCancel();
-    }
-
-    @Override
-    public void onStop() {
-        stateMachine.onStop();
-    }
 
 }

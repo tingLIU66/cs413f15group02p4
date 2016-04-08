@@ -11,7 +11,9 @@ class StoppedState implements SimpleTimerState {
     private final SimpleTimerSMStateView sm;
 
     @Override
-    public void onIncrement() {
+    public void onClickButton() {
+        sm.actionIncrement();
+        sm.actionUpdateView();
         sm.toIncrementState();
        // sm.updateButtonName();
     }
@@ -33,16 +35,8 @@ class StoppedState implements SimpleTimerState {
 
     @Override
     public void updateView() {
-            sm.updateUIRuntime();
+            sm.updateCountValue();
     }
 
 
-    //@Override
-    //public void onIncrement(){}
-
-     @Override
-     public void onCancel(){}  //do nothing
-
-    @Override
-    public void onStop(){}       //do nothing
 }

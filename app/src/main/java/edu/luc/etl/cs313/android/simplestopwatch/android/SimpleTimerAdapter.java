@@ -6,7 +6,6 @@ import android.view.Menu;
 import android.view.View;
 import android.widget.TextView;
 import edu.luc.etl.cs313.android.simplestopwatch.R;
-import edu.luc.etl.cs313.android.simplestopwatch.common.Constants;
 import edu.luc.etl.cs313.android.simplestopwatch.common.SimpleTimerUIUpdateListener;
 import edu.luc.etl.cs313.android.simplestopwatch.model.ConcreteSimpleTimerModelFacade;
 import edu.luc.etl.cs313.android.simplestopwatch.model.SimpleTimerModelFacade;
@@ -71,9 +70,10 @@ public class SimpleTimerAdapter extends Activity implements SimpleTimerUIUpdateL
         runOnUiThread(() -> {
             final TextView tvS = (TextView) findViewById(R.id.seconds);
            // final TextView tvM = (TextView) findViewById(R.id.minutes);
-            final int seconds = time % Constants.SEC_PER_MIN;
+            final int seconds = time;
            // final int minutes = time / Constants.SEC_PER_MIN;
             tvS.setText(Integer.toString(seconds / 10) + Integer.toString(seconds % 10));
+           // tvS.setText(Integer.toString(seconds));
            // tvM.setText(Integer.toString(minutes / 10) + Integer.toString(minutes % 10));
         });
     }
@@ -99,7 +99,7 @@ public class SimpleTimerAdapter extends Activity implements SimpleTimerUIUpdateL
        //added on 4/ic_launcher/2016
         runOnUiThread(() -> {
            final TextView buttonName = (TextView) findViewById(R.id.button);
-            if(stateId == R.string.SETTIME)
+            if(stateId == R.string.SETTIME || stateId == R.string.STOPPED)
                 buttonName.setText("Increment");
             else if(stateId == R.string.RUNNING)
                 buttonName.setText("Cancel");
@@ -114,7 +114,8 @@ public class SimpleTimerAdapter extends Activity implements SimpleTimerUIUpdateL
     // begin-method-updateView
     public void updateCount() {
         final TextView valueView = (TextView) findViewById(R.id.seconds);
-        valueView.setText(Integer.toString(model.getValue()));      //added on 4/4/2016
+        valueView.setText(Integer.toString(model.getValue() / 10) + Integer.toString(model.getValue() % 10));      //added on 4/4/2016
+
         // afford controls according to model state
         //findViewById(R.id.button).setEnabled(!model.isFull());
     }
@@ -122,14 +123,8 @@ public class SimpleTimerAdapter extends Activity implements SimpleTimerUIUpdateL
 
     // forward event listener methods to the model
 
-    public void onIncrement(final View view) {
-        model.onIncrement();
-    }
-    public void onCancel(final View view) {
-        model.onCancel();
-    }
-    public void onStop(final View view) {
-        model.onStop();
+    public void onClickButton(final View view) {
+        model.onClickButton();
     }
 
     protected void playDefaultALARM() {

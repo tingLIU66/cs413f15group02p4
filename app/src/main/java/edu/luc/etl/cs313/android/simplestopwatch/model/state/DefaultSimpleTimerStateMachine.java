@@ -20,7 +20,7 @@ public class DefaultSimpleTimerStateMachine implements SimpleTimerStateMachine {
 
     private int stopbeepflag = 0;
 
-    private int clickcount = getValue();
+    //private int clickcount = getValue();
 
     private int tickcount = 0;
 
@@ -50,9 +50,7 @@ public class DefaultSimpleTimerStateMachine implements SimpleTimerStateMachine {
     // forward event uiUpdateListener methods to the current state
     // these must be synchronized because events can come from the
     // UI thread or the timer thread
-    @Override public synchronized void onIncrement() { state.onIncrement(); }
-    @Override public synchronized void onCancel()  { state.onCancel(); }
-    @Override public synchronized void onStop()  { state.onStop(); }
+    @Override public synchronized void onClickButton() { state.onClickButton(); }
     @Override public synchronized void onTick()    { state.onTick(); }
 
     @Override public void updateUIRuntime() { uiUpdateListener.updateTime(timeModel.getRuntime()); }
@@ -63,7 +61,7 @@ public class DefaultSimpleTimerStateMachine implements SimpleTimerStateMachine {
     private final SimpleTimerState STOPPED     = new StoppedState(this);
     private final SimpleTimerState RUNNING     = new DecrementState(this);
     private final SimpleTimerState SETTIME     = new IncrementState(this);
-    private final SimpleTimerState ALARM = new AlarmState(this);
+    private final SimpleTimerState ALARM       = new AlarmState(this);
 
     // transitions
     @Override public void toDecrementState()    { setState(RUNNING); }
@@ -74,6 +72,7 @@ public class DefaultSimpleTimerStateMachine implements SimpleTimerStateMachine {
     // actions
     @Override public void actionInit()       { toStoppedState(); actionReset(); }
     @Override public void actionReset()      { timeModel.resetRuntime(); actionUpdateView(); }
+    @Override public void actionCancel()      { boundedcounterModel.reset(); updateCountValue(); }
     @Override public void actionStart()      { clockModel.start(); actionUpdateView();}  //added on 4/4/2016
     @Override public void actionStop()       { clockModel.stop(); }
 
@@ -92,11 +91,11 @@ public class DefaultSimpleTimerStateMachine implements SimpleTimerStateMachine {
         }
 
     @Override public void actionIncrement()        { boundedcounterModel.increment(); actionUpdateView(); }
-    @Override public void actionDecrement()        { timeModel.decRuntime(getValue()); actionUpdateView();clickcount--; }
-    @Override public int getClickcount()    {return clickcount;}
+    @Override public void actionDecrement()        { timeModel.decRuntime(99); actionUpdateView();}
+    @Override public int getClickcount()    {return timeModel.getRuntime();}
     @Override public int getTickcount()     {return tickcount;}
     @Override public void actionUpdateView() { state.updateView(); }
-    @Override public int getValue(){ return boundedcounterModel.getValue();}        //added on 4/4/2016
+    @Override public int getValue(){ return boundedcounterModel.getClickValue();}        //added on 4/4/2016
     @Override public boolean isFull(){return boundedcounterModel.isFull();}
 
 

@@ -12,10 +12,11 @@ class DecrementState implements SimpleTimerState {
 
 
     @Override
-    public void onCancel() {
+    public void onClickButton() {
         sm.actionStop();        //cancel timer
-        sm.actionReset();
+        sm.actionCancel();
         sm.toStoppedState();
+        sm.updateButtonName();
 
     }
 
@@ -47,11 +48,7 @@ class DecrementState implements SimpleTimerState {
         return sm.getValue();
     }
 
-    @Override
-    public void onIncrement(){}
 
-    @Override
-    public void onStop(){}
 
 }
 

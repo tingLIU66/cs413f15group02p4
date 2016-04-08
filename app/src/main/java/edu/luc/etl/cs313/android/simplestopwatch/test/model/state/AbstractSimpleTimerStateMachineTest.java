@@ -78,7 +78,7 @@ public abstract class AbstractSimpleTimerStateMachineTest {
     public void testScenarioRun() {
         assertTimeEquals(0);
         // directly invoke the button press event handler methods
-        model.onIncrement();
+        model.onClickButton();
         onTickRepeat(5);
         assertTimeEquals(5);
     }
@@ -94,7 +94,7 @@ public abstract class AbstractSimpleTimerStateMachineTest {
     public void testScenarioRunLapReset() {
         assertTimeEquals(0);
         // directly invoke the button press event handler methods
-        model.onIncrement();
+        model.onClickButton();
         assertEquals(R.string.SETTIME, dependency.getState());
         assertTrue(dependency.isStarted());
         onTickRepeat(5);
@@ -230,7 +230,14 @@ class UnifiedMockDependency implements TimeModel, ClockModel, BoundedCounterMode
     }
 
     @Override
-    public int getValue() {
+    public void reset() {
+        while (!isEmpty()) {
+            decrement();
+        }
+    }
+
+    @Override
+    public int getClickValue() {
         return value;
     }
 

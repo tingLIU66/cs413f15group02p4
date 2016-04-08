@@ -11,7 +11,7 @@ class AlarmState implements SimpleTimerState {
     private final SimpleTimerSMStateView sm;
 
     @Override
-    public void onStop() {
+    public void onClickButton() {
         sm.actionStopAlarm();
         sm.actionReset();
         sm.updateButtonName();
@@ -33,12 +33,7 @@ class AlarmState implements SimpleTimerState {
         return R.string.ALARM;
     }
 
-    @Override
-    public void onIncrement() {
-    }
-    public void onCancel() {
-    }
-    //public void onStop(){}
+
     @Override
     public int getValue()
     {

@@ -10,17 +10,18 @@ class IncrementState implements SimpleTimerState {
 
     private final SimpleTimerSMStateView sm;
 
-    private int clickcount = getValue();
+   // private int clickcount = getValue();
 
     @Override
-    public void onIncrement(){
+    public void onClickButton(){
         sm.actionIncrement();
         sm.actionUpdateView();
-        if(clickcount == 99)// || (clickcount < 99 && sm.getTickcount() == 3)) {          //TO DO
-        {   sm.actionBeep();
-            sm.updateButtonName();
+        if(this.getValue() == 10)// || (clickcount < 99 && sm.getTickcount() == 3)) {          //TO DO
+        {  // sm.actionBeep();
             sm.actionStart();
             sm.toDecrementState();
+            sm.updateButtonName();
+
         }
         else
             sm.toIncrementState();
@@ -31,10 +32,6 @@ class IncrementState implements SimpleTimerState {
         throw new UnsupportedOperationException("onTick");
     }
 
-    @Override
-    public void onCancel() {
-           //do nothing, because there is no Cancel Button in this state
-    }
 
     @Override
     public void updateView() {
@@ -51,11 +48,8 @@ class IncrementState implements SimpleTimerState {
         return sm.getValue();
     }
 
-    @Override
-    public void onStop(){
-
     }
 
-}
+
 
 

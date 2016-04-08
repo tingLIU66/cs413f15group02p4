@@ -13,18 +13,18 @@ public class DefaultTimeModel implements TimeModel {
 
     @Override
     public void resetRuntime() {
-        runningTime = 0;
+        this.runningTime = 0;
     }
 
     @Override
     public void decRuntime(int runningTime) {
-        this.runningTime = runningTime--;
+        this.runningTime = --runningTime;
         //tickcount++;
     }
 
     @Override
     public int getRuntime() {
-        return runningTime;
+        return this.runningTime;
     }
 
 

@@ -18,9 +18,9 @@ public class DefaultBoundedCounterModel implements BoundedCounterModel {
     private int value;
 
     /** Constructs a bounded counter with the default bounds. */
-    public DefaultBoundedCounterModel() {
-        this(0, 99);
-    }
+    //public DefaultBoundedCounterModel() {
+        //this(0, 99);
+    //}
 
     /**
      * Constructs a bounded counter with the given bounds.
@@ -62,9 +62,16 @@ public class DefaultBoundedCounterModel implements BoundedCounterModel {
         assertIfDebug(this::dataInvariant);
     }
 
-    @Override
-    public int getValue() {
+        @Override
+    public int getClickValue() {
         return value;
+    }
+
+    @Override
+    public void reset() {
+        while (!isEmpty()) {
+            decrement();
+        }
     }
 
     @Override
