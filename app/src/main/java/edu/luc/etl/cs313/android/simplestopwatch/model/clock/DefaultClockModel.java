@@ -12,7 +12,7 @@ public class DefaultClockModel implements ClockModel {
 
     // TODO make accurate by keeping track of partial seconds when canceled etc.
 
-    private Timer timer;
+    private Timer timer,alarmtimer;
 
     private OnTickListener listener;
 
@@ -37,5 +37,24 @@ public class DefaultClockModel implements ClockModel {
     @Override
     public void stop() {
         timer.cancel();
+    }
+
+
+    @Override
+    public void startAlarm() {
+        alarmtimer = new Timer();
+        //added on 4/9/2016
+        // The clock model runs onAlarm every 2000 milliseconds
+        alarmtimer.schedule(new TimerTask() {
+            @Override public void run() {
+                // fire event
+                listener.onAlarm();
+            }
+        }, /*initial delay*/ 1000, /*periodic delay*/ 2000);
+    }
+
+    @Override
+    public void stopAlarm() {
+        alarmtimer.cancel();
     }
 }

@@ -9,12 +9,12 @@ package edu.luc.etl.cs313.android.simplestopwatch.model.counter;
     public interface BoundedCounterModel {
         void increment();
         void decrement();
-        int getClickValue();
+        int getClickValue();     //added on 4/6/2016
         void reset();
         boolean isFull();
         boolean isEmpty();
         void resetRuntime();
-        void decRuntime();
+        void decRuntime();      //added on 4/6/2016
         int getRuntime();
     }
 

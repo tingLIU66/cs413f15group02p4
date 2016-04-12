@@ -24,9 +24,8 @@ public class ConcreteSimpleTimerModelFacade implements SimpleTimerModelFacade {
     private BoundedCounterModel boundedcounterModel;
 
     public ConcreteSimpleTimerModelFacade() {
-       // timeModel = new DefaultTimeModel();
         clockModel = new DefaultClockModel();
-        boundedcounterModel = new DefaultBoundedCounterModel(0,99);  //added 0n 4/4/2016
+        boundedcounterModel = new DefaultBoundedCounterModel(0,99);  //added 0n 4/4/2016 set boundedcounter's minValue = 0; maxValue = 99;
         stateMachine = new DefaultSimpleTimerStateMachine(clockModel, boundedcounterModel);  ////added 0n 4/4/2016
         clockModel.setOnTickListener(stateMachine);
     }

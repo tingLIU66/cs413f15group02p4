@@ -15,7 +15,7 @@ class StoppedState implements SimpleTimerState {
         sm.actionIncrement();
         sm.actionUpdateView();
         sm.toIncrementState();
-       // sm.updateButtonName();
+        sm.updateButtonName();
     }
     @Override
     public void onTick() {
@@ -30,7 +30,7 @@ class StoppedState implements SimpleTimerState {
     @Override
     public int getValue()
     {
-        return 0; //return sm.getValue();
+        return 0;
     }
 
     @Override
@@ -38,5 +38,9 @@ class StoppedState implements SimpleTimerState {
             sm.updateCountValue();
     }
 
+    @Override
+    public void onAlarm() {
+
+    }
 
 }

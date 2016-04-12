@@ -1,5 +1,6 @@
 package edu.luc.etl.cs313.android.simplestopwatch.android;
 
+
 import android.app.Activity;
 import android.os.Bundle;
 import android.view.Menu;
@@ -15,8 +16,6 @@ import android.media.MediaPlayer;
 import android.media.RingtoneManager;
 import android.net.Uri;
 import java.io.IOException;
-
-//import edu.luc.etl.cs313.misc.boundedcounter.cli.BoundedCounter;
 
 /**
  * A thin adapter component for the simpleTimer.
@@ -96,7 +95,7 @@ public class SimpleTimerAdapter extends Activity implements SimpleTimerUIUpdateL
      */
     public void updateButton(final int stateId){
        //UI adapter responsibility to schedule incoming events on UI thread
-       //added on 4/ic_launcher/2016
+       //added on 4/3/2016
         runOnUiThread(() -> {
            final TextView buttonName = (TextView) findViewById(R.id.button);
             if(stateId == R.string.SETTIME || stateId == R.string.STOPPED)
@@ -113,13 +112,13 @@ public class SimpleTimerAdapter extends Activity implements SimpleTimerUIUpdateL
      */
     // begin-method-updateView
     public void updateCount() {
+        // UI adapter responsibility to schedule incoming events on UI thread
         final TextView valueView = (TextView) findViewById(R.id.seconds);
         valueView.setText(Integer.toString(model.getValue() / 10) + Integer.toString(model.getValue() % 10));      //added on 4/4/2016
 
         // afford controls according to model state
-        //findViewById(R.id.button).setEnabled(!model.isFull());
-    }
-    // end-method-updateView
+       }
+    // end-method-updateCount
 
     // forward event listener methods to the model
 
@@ -127,14 +126,16 @@ public class SimpleTimerAdapter extends Activity implements SimpleTimerUIUpdateL
         model.onClickButton();
     }
 
+
     public void playDefaultALARM() {
-        final Uri defaultRingtoneUri = RingtoneManager.getDefaultUri(RingtoneManager.TYPE_RINGTONE);
+        // UI adapter responsibility to schedule incoming events on UI thread
+        final Uri defaultRingtoneUri = RingtoneManager.getDefaultUri(RingtoneManager.TYPE_ALARM);
         final MediaPlayer mediaPlayer = new MediaPlayer();
         final Context context = getApplicationContext();
 
         try {
             mediaPlayer.setDataSource(context, defaultRingtoneUri);
-            mediaPlayer.setAudioStreamType(AudioManager.STREAM_RING);
+            mediaPlayer.setAudioStreamType(AudioManager.STREAM_SYSTEM);
             mediaPlayer.prepare();
             mediaPlayer.setOnCompletionListener(MediaPlayer::release);
             mediaPlayer.start();

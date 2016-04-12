@@ -12,7 +12,7 @@
     <!-- model state display names -->
     <string name="STOPPED">Stopped</string>
     <string name="RUNNING">Running</string>
-    <string name="ALARM">ALARM</string>
-    <string name="SETTIME">SETTIME</string>
+    <string name="ALARM">Alarm</string>
+    <string name="SETTIME">Settime</string>
 
 </resources>

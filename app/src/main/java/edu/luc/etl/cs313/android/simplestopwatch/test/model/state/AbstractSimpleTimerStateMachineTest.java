@@ -70,44 +70,27 @@ public abstract class AbstractSimpleTimerStateMachineTest {
     }
 
     /**
-     * Verifies the following scenario: time is 0, press start, wait 5+ seconds,
-     * expect time 5.
+     * Verifies the following scenario: time is 5, press increment, wait 8+ seconds(first 3 seconds are used to wait for starting),
+     * expect time 1.
      */
     @Test
     public void testScenarioRun() {
         assertTimeEquals(0);
-        // directly invoke the button press event handler methods
-        model.onClickButton();
-        onTickRepeat(5);
-        assertTimeEquals(5);
-    }
-
-    /**
-     * Verifies the following scenario: time is 0, press start, wait 5+ seconds,
-     * expect time 5, press lap, wait 4 seconds, expect time 5, press start,
-     * expect time 5, press lap, expect time 9, press lap, expect time 0.
-     *
-     * @throws Throwable
-     */
-    @Test
-    public void testScenarioRunLapReset() {
+        // directly invoke the button press event handler methods, press 6 times here to set the initial time as 5 seconds to count down
+        for(int i=0; i<6;i++) {
+            model.onClickButton();
+        }
+        onTickRepeat(8);
         assertTimeEquals(0);
-        // directly invoke the button press event handler methods
-        model.onClickButton();
-        assertEquals(R.string.SETTIME, dependency.getState());
-        assertTrue(dependency.isStarted());
-        onTickRepeat(5);
-        assertTimeEquals(5);
-
     }
 
-    /**
+       /**
      * Sends the given number of tick events to the model.
      *
      *  @param n the number of tick events
      */
     protected void onTickRepeat(final int n) {
-        for (int i = 99; i > 0; i--)
+        for (int i = 0; i < n; i++)
             model.onTick();
     }
 
@@ -131,7 +114,7 @@ class UnifiedMockDependency implements ClockModel, BoundedCounterModel, SimpleTi
 
     private int timeValue = -1, stateId = -1;
 
-    private int runningTime = 0, lapTime = -1;
+    private int runningTime = 0;
 
     private boolean started = false;
 
@@ -166,9 +149,19 @@ class UnifiedMockDependency implements ClockModel, BoundedCounterModel, SimpleTi
     public void updateCount() {
     }                  //added on 4/6/2016
     @Override public void playDefaultALARM(){}
-    @Override
-    public void setOnTickListener(OnTickListener listener) {
+
+    @Override public void setOnTickListener(OnTickListener listener) {
         throw new UnsupportedOperationException();
+    }
+
+    @Override
+    public void startAlarm() {
+        started = true;
+    }
+
+    @Override
+    public void stopAlarm() {
+        started = false;
     }
 
     @Override
@@ -180,7 +173,6 @@ class UnifiedMockDependency implements ClockModel, BoundedCounterModel, SimpleTi
     public void stop() {
         started = false;
     }
-
     @Override
     public void resetRuntime() {
         runningTime = 0;
@@ -189,7 +181,7 @@ class UnifiedMockDependency implements ClockModel, BoundedCounterModel, SimpleTi
     @Override
     public void decRuntime() {
         this.runningTime = value--;
-        //tickcount++;
+
     }
 
     @Override
@@ -231,7 +223,7 @@ class UnifiedMockDependency implements ClockModel, BoundedCounterModel, SimpleTi
     @Override
     public void reset() {
         while (!isEmpty()) {
-            decrement();
+            decRuntime();
         }
     }
 

@@ -24,15 +24,15 @@ class DecrementState implements SimpleTimerState {
     public void onTick() {
         sm.actionDecrement();
         sm.toDecrementState();
-        if(sm.getClickcount()==0){          //TO DO
+
+        //time remain = getClickcount()
+        if(sm.getClickcount()==0){
             sm.actionStop();
             sm.toAlarmState();
             sm.updateButtonName();
-            //sm.actionAlarm();
-            sm.actionBeep();
-        }
+            sm.actionAlarm();
+         }
     }
-
 
     @Override
     public void updateView() {
@@ -49,7 +49,9 @@ class DecrementState implements SimpleTimerState {
         return sm.getValue();
     }
 
+    @Override
+    public void onAlarm() {
 
-
+    }
 }
 

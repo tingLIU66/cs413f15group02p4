@@ -50,17 +50,13 @@ public class DefaultBoundedCounterModel implements BoundedCounterModel {
 
     @Override
     public void increment() {
-      //  assertIfDebug(() -> dataInvariant() && !isFull());
-        ++value;
-       // assertIfDebug(this::dataInvariant);
-    }
+            ++value;
+     }
 
     @Override
     public void decrement() {
-       // assertIfDebug(() -> dataInvariant() && !isEmpty());
-        --value;
-       // assertIfDebug(this::dataInvariant);
-    }
+           --value;
+     }
 
         @Override
     public int getClickValue() {
@@ -70,7 +66,7 @@ public class DefaultBoundedCounterModel implements BoundedCounterModel {
     @Override
     public void reset() {
         while (!isEmpty()) {
-            decrement();
+            decRuntime();
         }
     }
 
@@ -84,18 +80,8 @@ public class DefaultBoundedCounterModel implements BoundedCounterModel {
         return value <= min;
     }
 
-    /*
-    protected void assertIfDebug(final BooleanSupplier p) {
-        if (BuildConfig.DEBUG && !p.getAsBoolean()) {
-            throw new AssertionError();
-        }
-    }
 
-*/
     private int runningTime ;
-    private int tickcount = 0;
-
-    //  private int lapTime = -1;
 
     @Override
     public void resetRuntime() {
@@ -105,8 +91,7 @@ public class DefaultBoundedCounterModel implements BoundedCounterModel {
     @Override
     public void decRuntime() {
         this.runningTime = value--;
-        //tickcount++;
-    }
+}
 
     @Override
     public int getRuntime() {

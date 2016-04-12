@@ -41,7 +41,18 @@ public class SimpleTimerActivityTest extends ActivityInstrumentationTestCase2<Si
         actualTest.testActivityScenarioRun();
     }
 
-   // public void testActivityScenarioRunLapReset() throws Throwable {
-       // actualTest.testActivityScenarioRunLapReset();
-   // }
+    public void testActivityScenarioUntil99() throws Throwable{
+        actualTest.testActivityScenarioUntil99();
+    }
+
+    public void testActivityScenarioInc() throws Throwable {
+        actualTest.testActivityScenarioInc();
+    }
+
+    public void testButtonFunctionPerState() throws Throwable {
+        actualTest.testButtonFunctionPerState();
+    }
+    public void testRotation() throws Throwable {
+        actualTest.testRotation();
+    }
 }

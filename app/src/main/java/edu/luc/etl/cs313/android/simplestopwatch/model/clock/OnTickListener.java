@@ -7,4 +7,5 @@ package edu.luc.etl.cs313.android.simplestopwatch.model.clock;
  */
 public interface OnTickListener {
     void onTick();
+    void onAlarm();  //added on 4/9/2016 onAlarm listener
 }
